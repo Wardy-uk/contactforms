@@ -194,9 +194,11 @@
       white-space: nowrap;
     }
 
-    /* Minimal styling on the BYM container itself only */
-    #bymForm {
-      margin-top: 0.5rem;
+    .form-frame {
+      width: 100%;
+      min-height: 520px; /* adjust if your form is taller/shorter */
+      border: none;
+      overflow: hidden;
     }
 
     footer {
@@ -216,9 +218,6 @@
       padding-top: 0.75rem;
     }
   </style>
-
-  <!-- BYM form script -->
-  <script language="javascript" src="https://jenniejones.briefyourmarket.com/Script/GetContactForm?id=5&elementId=bymForm"></script>
 </head>
 
 <body>
@@ -275,13 +274,12 @@
             <div class="status-pill">Live embed</div>
           </div>
 
-          <!-- BYM target element -->
-          <div id="bymForm">
-            <p style="font-size:0.85rem; color:#828082; margin:0;">
-              Loading contact form… If this message remains, please check the
-              script configuration.
-            </p>
-          </div>
+          <!-- Sandbox the form in its own page -->
+          <iframe
+            src="contact-form.html"
+            class="form-frame"
+            title="Contact form"
+          ></iframe>
         </section>
       </div>
     </main>
@@ -299,5 +297,3 @@
   </script>
 </body>
 </html>
-
-
