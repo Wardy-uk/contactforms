@@ -329,19 +329,29 @@ footer {
 }
 
 /* BYM submit button override (embedded + popup) */
+#bymForm button,
 #bymForm input[type="submit"],
 #bymForm input[type="button"],
+#bymForm .bym-contactForm-submit,
+#bymFormDialog button,
 #bymFormDialog input[type="submit"],
-#bymFormDialog input[type="button"] {
+#bymFormDialog input[type="button"],
+#bymFormDialog .bym-contactForm-submit {
   background-color: var(--orange) !important;
   border-color: var(--orange) !important;
   color: #ffffff !important;
+  border-radius: 4px !important;
 }
 
+/* Hover state */
+#bymForm button:hover,
 #bymForm input[type="submit"]:hover,
 #bymForm input[type="button"]:hover,
+#bymForm .bym-contactForm-submit:hover,
+#bymFormDialog button:hover,
 #bymFormDialog input[type="submit"]:hover,
-#bymFormDialog input[type="button"]:hover {
+#bymFormDialog input[type="button"]:hover,
+#bymFormDialog .bym-contactForm-submit:hover {
   background-color: #d7700c !important;
   border-color: #d7700c !important;
 }
