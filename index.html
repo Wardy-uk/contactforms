@@ -19,20 +19,6 @@
       --radius-lg: 18px;
     }
 
-    /* Apply box-sizing to our layout, but we’ll undo it inside #bymForm */
-    .page *,
-    .page *::before,
-    .page *::after {
-      box-sizing: border-box;
-    }
-
-    /* 🔧 IMPORTANT: let the embedded BYM form use its own expected box model */
-    #bymForm *,
-    #bymForm *::before,
-    #bymForm *::after {
-      box-sizing: content-box;
-    }
-
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -40,11 +26,6 @@
       background: linear-gradient(135deg, #f5f9fb 0%, #ffffff 60%, #e6f6f7 100%);
       color: var(--dark);
       line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
     }
 
     .page {
@@ -62,7 +43,7 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      justify-content: flex-start; /* no right-side button now */
+      justify-content: flex-start;
       gap: 1rem;
     }
 
@@ -154,12 +135,13 @@
       list-style: none;
       display: grid;
       gap: 0.35rem;
-      margin-bottom: 0; /* we’ve removed the CTA row */
+      margin: 0;
       font-size: 0.95rem;
       color: var(--dark);
+      padding-left: 0;
     }
 
-    .hero-list li {
+    .hero-list-item {
       display: flex;
       align-items: flex-start;
       gap: 0.45rem;
@@ -212,7 +194,7 @@
       white-space: nowrap;
     }
 
-    /* Keep BYM container visually neutral */
+    /* Minimal styling on the BYM container itself only */
     #bymForm {
       margin-top: 0.5rem;
     }
@@ -267,15 +249,15 @@
           </p>
 
           <ul class="hero-list">
-            <li>
+            <li class="hero-list-item">
               <div class="hero-list-bullet"></div>
               <span>Fully static – ideal for GitHub + Netlify deployments.</span>
             </li>
-            <li>
+            <li class="hero-list-item">
               <div class="hero-list-bullet"></div>
               <span>Form loaded dynamically via your BriefYourMarket script.</span>
             </li>
-            <li>
+            <li class="hero-list-item">
               <div class="hero-list-bullet"></div>
               <span>Lightweight, responsive layout with a subtle brand-friendly style.</span>
             </li>
@@ -295,7 +277,7 @@
 
           <!-- BYM target element -->
           <div id="bymForm">
-            <p style="font-size:0.85rem; color:#828082;">
+            <p style="font-size:0.85rem; color:#828082; margin:0;">
               Loading contact form… If this message remains, please check the
               script configuration.
             </p>
@@ -317,4 +299,5 @@
   </script>
 </body>
 </html>
+
 
