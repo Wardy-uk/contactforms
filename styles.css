@@ -315,43 +315,74 @@ footer {
   }
 }
 
-/* Popup dialog tweaks */
-
-/* Light orange panel for popup dialog */
-#bymFormDialog > div {
-  background: var(--panel-bg) !important;
-  border-radius: 20px !important;
-}
-
-/* Leave close button behaviour to BYM, just make it look reasonable */
-#bymFormDialogClose {
-  cursor: pointer;
-}
-
 /* BYM submit button override (embedded + popup) */
+
 #bymForm button,
 #bymForm input[type="submit"],
 #bymForm input[type="button"],
-#bymForm .bym-contactForm-submit,
-#bymFormDialog button,
-#bymFormDialog input[type="submit"],
-#bymFormDialog input[type="button"],
-#bymFormDialog .bym-contactForm-submit {
+#bymForm .bym-contactForm-submit {
   background-color: var(--orange) !important;
   border-color: var(--orange) !important;
   color: #ffffff !important;
   border-radius: 4px !important;
 }
 
-/* Hover state */
 #bymForm button:hover,
 #bymForm input[type="submit"]:hover,
 #bymForm input[type="button"]:hover,
-#bymForm .bym-contactForm-submit:hover,
-#bymFormDialog button:hover,
-#bymFormDialog input[type="submit"]:hover,
-#bymFormDialog input[type="button"]:hover,
-#bymFormDialog .bym-contactForm-submit:hover {
+#bymForm .bym-contactForm-submit:hover {
   background-color: #d7700c !important;
   border-color: #d7700c !important;
+}
+
+/* Modal popup */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal {
+  background: var(--panel-bg);
+  border-radius: 20px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  padding: 1.6rem 1.8rem 1.8rem;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.modal-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.4rem;
+  color: var(--dark);
+}
+
+.modal-subtitle {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--mid-grey);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #555;
 }
