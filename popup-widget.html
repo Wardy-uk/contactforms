@@ -8,19 +8,29 @@
   <!-- Shared stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- BYM popup scripts MUST be in the head -->
+  <!-- BYM form script – we only need GetContactForm -->
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
-  <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=1&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
 </head>
 
 <body>
+  <!-- Custom popup overlay (opens by default via .is-open) -->
+  <div class="modal-overlay is-open" id="contactModal">
+    <div class="modal">
+      <button class="modal-close" id="contactModalClose" aria-label="Close contact form">
+        &times;
+      </button>
+      <h2 class="modal-title">Contact form popup demo</h2>
+      <p class="modal-subtitle">
+        This popup is powered by a custom modal, but the form itself is still loaded
+        via the BriefYourMarket <code>GetContactForm</code> script.
+      </p>
 
-  <!-- Popup dialog MUST be the first element inside <body> -->
-  <div id="bymFormDialog">
-    <div>
-      <div id="bymFormDialogClose"></div>
-      <div id="bymForm"></div>
-      <div id="bymForm"></div>
+      <!-- BYM will inject the form into this element -->
+      <div id="bymForm">
+        <p class="form-fallback">
+          Loading contact form… If this message remains, please check the script configuration.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -41,29 +51,29 @@
       <section class="hero">
         <div class="hero-tag">
           <div class="hero-tag-dot"></div>
-          <span>Popup widget demo</span>
+          <span>Popup widget demo (custom modal)</span>
         </div>
 
-        <h1>Contact form popup widget, powered by BriefYourMarket.</h1>
+        <h1>Contact form popup, using a custom modal and BYM contact form.</h1>
 
         <p>
-          This page demonstrates the contact form loading as a popup widget.
-          The dialog is configured to appear on <strong>every visit</strong>
-          using the parameter <code>afterVisits=1</code>.
+          This page demonstrates a custom popup that opens automatically when the page loads.
+          The form itself is still rendered by the BriefYourMarket
+          <code>GetContactForm</code> script targeting <code>elementId=bymForm</code>.
         </p>
 
         <ul class="hero-list">
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>The form itself is injected by <code>GetContactForm</code>.</span>
+            <span>Form content is loaded from your BYM sandbox (id=11).</span>
           </li>
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>The popup behaviour is controlled by <code>DisplayContactForm</code>.</span>
+            <span>Popup layout, overlay, and close behaviour are controlled by this page.</span>
           </li>
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>Cookie expiry is set to 0 days (no automatic expiry).</span>
+            <span>No dependency on <code>DisplayContactForm</code> – ideal for internal demos.</span>
           </li>
         </ul>
       </section>
@@ -78,8 +88,20 @@
   </div>
 
   <script>
+    // Set footer year
     document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 
+    // Simple modal close behaviour
+    (function () {
+      var modal = document.getElementById("contactModal");
+      var closeBtn = document.getElementById("contactModalClose");
+
+      if (modal && closeBtn) {
+        closeBtn.addEventListener("click", function () {
+          modal.classList.remove("is-open");
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
