@@ -169,7 +169,7 @@
       padding-top: 0.75rem;
     }
 
-    /* Optional: small “X” close button styling – BYM script will hook into this ID */
+    /* Simple “X” close button – BYM script targets this ID */
     #bymFormDialogClose {
       position: absolute;
       top: 10px;
