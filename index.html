@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Contact Form Showcase</title>
+  <title>Nurtur – Contact Form Demo (Embedded)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="A simple one-page website showcasing an embedded contact form."
+    content="Nurtur demo page showcasing an embedded BriefYourMarket contact form."
   />
 
   <!-- Shared styles -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- BYM embedded form script -->
+  <!-- BYM embedded form script for the demo -->
+  <!-- NOTE: In production, obtain the exact snippet from:
+       Email > Content > Contact Forms > [Your Form] -->
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
 </head>
 
@@ -21,11 +23,13 @@
     <header>
       <div class="nav">
         <div class="logo">
-          <div class="logo-mark">NW</div>
-          <span>Contact form demo</span>
+          <div class="logo-mark">N</div>
+          <span>Nurtur contact form demo</span>
         </div>
         <div class="nav-links">
-          <a href="popup-widget.html">Popup widget demo →</a>
+          <a href="index.html">Embedded demo</a>
+          <a href="popup-widget.html">Popup demo</a>
+          <a href="implementation.html">Implementation guide</a>
         </div>
       </div>
     </header>
@@ -35,35 +39,35 @@
         <section class="hero-copy">
           <div class="hero-highlight">
             <div class="hero-highlight-dot"></div>
-            <span>Embedded BYM contact form demo</span>
+            <span>Embedded BriefYourMarket contact form</span>
           </div>
 
-          <h1>Showcasing an embedded contact form — clean, simple, and ready to use.</h1>
+          <h1>Nurtur demo: embedded BriefYourMarket contact form.</h1>
 
           <p>
-            This single-page layout is designed to make the contact form the star
-            of the show. Use it as a standalone demo, or as the foundation for a
-            more complete site.
+            This page demonstrates how a BriefYourMarket contact form can be
+            embedded into a standard Nurtur-branded layout. The form itself is
+            loaded via the platform’s <code>GetContactForm</code> script.
           </p>
 
           <ul class="hero-list">
             <li class="hero-list-item">
               <div class="hero-list-bullet"></div>
-              <span>Fully static – ideal for GitHub + Netlify deployments.</span>
+              <span>Perfect for static sites (e.g. GitHub + Netlify).</span>
             </li>
             <li class="hero-list-item">
               <div class="hero-list-bullet"></div>
-              <span>Form loaded dynamically via your BriefYourMarket script.</span>
+              <span>Form markup is injected directly from BriefYourMarket.</span>
             </li>
             <li class="hero-list-item">
               <div class="hero-list-bullet"></div>
-              <span>Lightweight, responsive layout with a subtle brand-friendly style.</span>
+              <span>Styling controlled using standard Nurtur CSS.</span>
             </li>
           </ul>
 
           <div class="hero-cta-row">
             <a href="popup-widget.html" class="btn-popup">
-              <span>Open popup widget demo</span>
+              <span>Open popup demo</span>
               <span class="btn-popup-icon">↗</span>
             </a>
           </div>
@@ -72,9 +76,9 @@
         <section id="contact" class="form-panel" aria-label="Contact form demo">
           <div class="form-panel-header">
             <div>
-              <div class="form-panel-title">Contact form</div>
+              <div class="form-panel-title">Embedded contact form</div>
               <div class="form-panel-subtitle">
-                This section is populated by the embedded BYM script.
+                The content below is injected by BriefYourMarket.
               </div>
             </div>
             <div class="status-pill">Live embed</div>
@@ -85,7 +89,7 @@
             <!-- Fallback if script fails -->
             <p class="form-fallback">
               Loading contact form… If this message remains, please check the
-              script configuration.
+              GetContactForm snippet configuration in your BriefYourMarket instance.
             </p>
           </div>
         </section>
@@ -94,7 +98,7 @@
 
     <footer>
       <div class="footer-inner">
-        <span>© <span id="year"></span> Contact Form Demo.</span>
+        <span>© <span id="year"></span> Nurtur.</span>
         <span>Embedded demo powered by BriefYourMarket.</span>
       </div>
     </footer>
@@ -103,7 +107,7 @@
   <!-- Floating link to popup demo -->
   <a href="popup-widget.html" class="floating-popup-btn">
     <span class="icon">💬</span>
-    <span>Try popup widget</span>
+    <span>Try popup demo</span>
   </a>
 
   <script>
