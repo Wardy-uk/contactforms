@@ -10,7 +10,6 @@
 
   <!-- BYM popup scripts MUST be in the head -->
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
-
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=1&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
 </head>
 
@@ -49,8 +48,8 @@
 
         <p>
           This page demonstrates the contact form loading as a popup widget.
-          The dialog is configured to appear on <strong>visit number 5</strong>
-          using the parameter <code>afterVisits=5</code>.
+          The dialog is configured to appear on <strong>every visit</strong>
+          using the parameter <code>afterVisits=1</code>.
         </p>
 
         <ul class="hero-list">
@@ -58,15 +57,13 @@
             <div class="hero-list-bullet"></div>
             <span>The form itself is injected by <code>GetContactForm</code>.</span>
           </li>
-
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
             <span>The popup behaviour is controlled by <code>DisplayContactForm</code>.</span>
           </li>
-
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>Popup will persist forever (cookie expiry = 0 days).</span>
+            <span>Cookie expiry is set to 0 days (no automatic expiry).</span>
           </li>
         </ul>
       </section>
