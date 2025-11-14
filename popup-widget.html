@@ -18,6 +18,7 @@
       --teal: #5ec1ca;
       --dark: #272c33;
       --light-bg: #f4f8fc;
+      --panel-bg: #f2fbfd;
       --mid-grey: #828082;
       --orange: #f28919;
     }
@@ -170,33 +171,22 @@
       padding-top: 0.75rem;
     }
 
-    /* Simple “X” close button – BYM script targets this ID */
+    /* Dialog panel background tint */
+    #bymFormDialog > div {
+      background: var(--panel-bg) !important;
+      border-radius: 20px;
+    }
+
+    /* Clean close icon – simple × */
     #bymFormDialogClose {
       position: absolute;
-      top: 10px;
-      right: 12px;
-      width: 18px;
-      height: 18px;
+      top: 12px;
+      right: 16px;
+      font-size: 20px;
+      line-height: 1;
       cursor: pointer;
-    }
-
-    #bymFormDialogClose::before,
-    #bymFormDialogClose::after {
-      content: "";
-      position: absolute;
-      inset: 8px 0;
-      margin: auto;
-      width: 18px;
-      height: 2px;
-      background: #666;
-    }
-
-    #bymFormDialogClose::before {
-      transform: rotate(45deg);
-    }
-
-    #bymFormDialogClose::after {
-      transform: rotate(-45deg);
+      color: #555;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -258,7 +248,7 @@
   <!-- Popup dialog container required by BYM scripts -->
   <div id="bymFormDialog">
     <div style="position:relative;">
-      <div id="bymFormDialogClose"></div>
+      <div id="bymFormDialogClose">&times;</div>
       <div id="bymForm"></div>
       <div id="bymForm"></div>
     </div>
