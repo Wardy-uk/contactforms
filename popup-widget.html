@@ -4,20 +4,27 @@
   <meta charset="UTF-8" />
   <title>Contact Form Popup Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Demo page showing a BriefYourMarket contact form as a popup widget."
-  />
 
-  <!-- Shared styles -->
+  <!-- Shared stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- BYM popup scripts – ALWAYS show (afterVisits=0) -->
+  <!-- BYM popup scripts MUST be in the head -->
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
+
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=1&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
 </head>
 
 <body>
+
+  <!-- Popup dialog MUST be the first element inside <body> -->
+  <div id="bymFormDialog">
+    <div>
+      <div id="bymFormDialogClose"></div>
+      <div id="bymForm"></div>
+      <div id="bymForm"></div>
+    </div>
+  </div>
+
   <div class="page">
     <header>
       <div class="nav">
@@ -42,22 +49,24 @@
 
         <p>
           This page demonstrates the contact form loading as a popup widget.
-          The dialog is configured to appear on <strong>every visit</strong>
-          (using <code>afterVisits=1</code> and a non-expiring cookie setting).
+          The dialog is configured to appear on <strong>visit number 5</strong>
+          using the parameter <code>afterVisits=5</code>.
         </p>
 
         <ul class="hero-list">
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>Form markup is injected by <code>Script &gt; GetContactForm</code>.</span>
+            <span>The form itself is injected by <code>GetContactForm</code>.</span>
           </li>
+
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>Popup behaviour is controlled by <code>Script &gt; DisplayContactForm</code>.</span>
+            <span>The popup behaviour is controlled by <code>DisplayContactForm</code>.</span>
           </li>
+
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>Trigger timing controlled via <code>afterVisits</code> and <code>expireAfterNumberOfDays</code>.</span>
+            <span>Popup will persist forever (cookie expiry = 0 days).</span>
           </li>
         </ul>
       </section>
@@ -71,18 +80,9 @@
     </footer>
   </div>
 
-  <!-- Popup dialog container required by BYM scripts -->
-  <!-- Structure matches BYM's instructions exactly -->
-  <div id="bymFormDialog">
-    <div>
-      <div id="bymFormDialogClose"></div>
-      <div id="bymForm"></div>
-      <div id="bymForm"></div>
-    </div>
-  </div>
-
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
