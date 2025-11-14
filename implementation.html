@@ -2,20 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Nurtur – Contact Form Demo (Embedded)</title>
+  <title>Nurtur – Implementing BriefYourMarket Contact Forms</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Nurtur demo page showcasing an embedded BriefYourMarket contact form."
+    content="Internal Nurtur guide for implementing BriefYourMarket contact forms on websites."
   />
 
   <!-- Shared styles -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- BYM embedded form script for the demo -->
-  <!-- NOTE: In production, obtain the exact snippet from:
-       Email > Content > Contact Forms > [Your Form] -->
-  <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
 </head>
 
 <body>
@@ -24,95 +19,364 @@
       <div class="nav">
         <div class="logo">
           <div class="logo-mark">N</div>
-          <span>Nurtur contact form demo</span>
+          <span>Nurtur contact form guide</span>
         </div>
         <div class="nav-links">
           <a href="index.html">Embedded demo</a>
           <a href="popup-widget.html">Popup demo</a>
-          <a href="implementation.html">Implementation guide</a>
+          <a href="implementation.html" class="nav-link-active">Implementation guide</a>
         </div>
       </div>
     </header>
 
     <main>
-      <div class="hero-shell">
-        <section class="hero-copy">
-          <div class="hero-highlight">
-            <div class="hero-highlight-dot"></div>
-            <span>Embedded BriefYourMarket contact form</span>
-          </div>
+      <section class="doc-page">
+        <div class="section-tag">
+          <span class="section-tag-dot"></span>
+          <span>Internal implementation guide</span>
+        </div>
 
-          <h1>Nurtur demo: embedded BriefYourMarket contact form.</h1>
+        <h1>Implementing BriefYourMarket Contact Forms (Nurtur)</h1>
 
-          <p>
-            This page demonstrates how a BriefYourMarket contact form can be
-            embedded into a standard Nurtur-branded layout. The form itself is
-            loaded via the platform’s <code>GetContactForm</code> script.
-          </p>
+        <p>
+          This guide explains how Nurtur teams can implement
+          <strong>BriefYourMarket contact forms</strong> on:
+        </p>
+        <ul>
+          <li>Standard HTML sites (e.g. Nurtur microsites, static demos).</li>
+          <li>WordPress sites used by Nurtur or our agents.</li>
+          <li>How to brand the forms using Nurtur CSS.</li>
+        </ul>
 
-          <ul class="hero-list">
-            <li class="hero-list-item">
-              <div class="hero-list-bullet"></div>
-              <span>Perfect for static sites (e.g. GitHub + Netlify).</span>
-            </li>
-            <li class="hero-list-item">
-              <div class="hero-list-bullet"></div>
-              <span>Form markup is injected directly from BriefYourMarket.</span>
-            </li>
-            <li class="hero-list-item">
-              <div class="hero-list-bullet"></div>
-              <span>Styling controlled using standard Nurtur CSS.</span>
-            </li>
-          </ul>
+        <div class="note">
+          <strong>Where to get the snippets</strong><br />
+          For each contact form, the required implementation snippets (for the
+          <code>GetContactForm</code> script and optional pop-up behaviour) are
+          available in your BriefYourMarket instance under:<br />
+          <strong>Email &gt; Content &gt; Contact Forms &gt; [Your Form]</strong>.<br />
+          <br />
+          This page intentionally does <em>not</em> include live script URLs –
+          always copy the latest snippets directly from BriefYourMarket.
+        </div>
 
-          <div class="hero-cta-row">
-            <a href="popup-widget.html" class="btn-popup">
-              <span>Open popup demo</span>
-              <span class="btn-popup-icon">↗</span>
-            </a>
-          </div>
-        </section>
+        <h2>1. Standard HTML websites</h2>
 
-        <section id="contact" class="form-panel" aria-label="Contact form demo">
-          <div class="form-panel-header">
-            <div>
-              <div class="form-panel-title">Embedded contact form</div>
-              <div class="form-panel-subtitle">
-                The content below is injected by BriefYourMarket.
-              </div>
-            </div>
-            <div class="status-pill">Live embed</div>
-          </div>
+        <h3>1.1 Embedded contact form</h3>
+        <p>To embed a BriefYourMarket form into a standard HTML page:</p>
 
-          <!-- BYM target element for embedded form -->
-          <div id="bymForm">
-            <!-- Fallback if script fails -->
-            <p class="form-fallback">
-              Loading contact form… If this message remains, please check the
-              GetContactForm snippet configuration in your BriefYourMarket instance.
-            </p>
-          </div>
-        </section>
-      </div>
+        <ol>
+          <li>
+            In BriefYourMarket, go to
+            <strong>Email &gt; Content &gt; Contact Forms</strong> and open the
+            required form.
+          </li>
+          <li>
+            Copy the <strong>GetContactForm</strong> snippet provided for that
+            form.
+          </li>
+          <li>
+            Paste the <strong>GetContactForm</strong> snippet into the
+            <code>&lt;head&gt;</code> of your HTML page.
+          </li>
+          <li>
+            In the <code>&lt;body&gt;</code>, create a container with the same
+            <code>elementId</code> referenced in the snippet (commonly
+            <code>bymForm</code>):
+          </li>
+        </ol>
+
+        <pre><code>&lt;!-- Target container for the embedded BriefYourMarket contact form --&gt;
+&lt;div id="bymForm"&gt;&lt;/div&gt;</code></pre>
+
+        <p>
+          When the page loads, BriefYourMarket injects the form markup into the
+          container with the matching <code>id</code>.
+        </p>
+
+        <h3>1.2 Pop-up contact form (BYM pop-up)</h3>
+
+        <p>
+          BriefYourMarket can also manage the pop-up behaviour for you via the
+          <strong>DisplayContactForm</strong> script.
+        </p>
+
+        <ol>
+          <li>
+            In BriefYourMarket, open the relevant contact form and copy the
+            implementation that includes:
+            <ul>
+              <li><strong>GetContactForm</strong> – loads the form markup.</li>
+              <li><strong>DisplayContactForm</strong> – controls the pop-up.</li>
+            </ul>
+          </li>
+          <li>
+            Paste the two-script snippet into the page
+            <code>&lt;head&gt;</code>. It will reference:
+            <ul>
+              <li><code>dialogElementId</code> – dialog container (e.g. <code>bymFormDialog</code>).</li>
+              <li><code>afterVisits</code> – number of visits before the pop-up shows.</li>
+              <li><code>expireAfterNumberOfDays</code> – cookie duration.</li>
+              <li><code>closeButtonId</code> – element used to close the dialog.</li>
+            </ul>
+          </li>
+          <li>
+            In the <code>&lt;body&gt;</code>, create the dialog container with
+            the IDs specified in the snippet:
+          </li>
+        </ol>
+
+        <pre><code>&lt;!-- Dialog container for BriefYourMarket pop-up --&gt;
+&lt;div id="bymFormDialog"&gt;
+  &lt;div&gt;
+    &lt;div id="bymFormDialogClose"&gt;&lt;/div&gt;
+    &lt;div id="bymForm"&gt;&lt;/div&gt;
+    &lt;div id="bymForm"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>
+          Then test in a private/incognito window. Depending on
+          <code>afterVisits</code>, you may need to refresh multiple times for
+          the pop-up to appear.
+        </p>
+
+        <h3>1.3 Pop-up contact form (custom Nurtur modal)</h3>
+
+        <p>
+          For full control over the look and behaviour, you can build a custom
+          Nurtur-branded modal and use BriefYourMarket only for the
+          <em>form content</em> via <strong>GetContactForm</strong>.
+        </p>
+
+        <ol>
+          <li>
+            Copy the <strong>GetContactForm</strong> snippet for your form from
+            BriefYourMarket and add it to the page
+            <code>&lt;head&gt;</code>.
+          </li>
+          <li>
+            In the <code>&lt;body&gt;</code>, add a modal overlay and panel:
+          </li>
+        </ol>
+
+        <pre><code>&lt;div class="modal-overlay is-open" id="contactModal"&gt;
+  &lt;div class="modal"&gt;
+    &lt;button class="modal-close" id="contactModalClose"&gt;&amp;times;&lt;/button&gt;
+    &lt;!-- BriefYourMarket will inject the form here --&gt;
+    &lt;div id="bymForm"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <ol start="3">
+          <li>
+            Add a small JavaScript snippet to close the modal:
+          </li>
+        </ol>
+
+        <pre><code>&lt;script&gt;
+  (function () {
+    var modal = document.getElementById("contactModal");
+    var closeBtn = document.getElementById("contactModalClose");
+    if (modal &amp;&amp; closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        modal.classList.remove("is-open");
+      });
+    }
+  })();
+&lt;/script&gt;</code></pre>
+
+        <p>
+          The Nurtur CSS (see examples below) controls the colours, spacing and
+          animation of the modal.
+        </p>
+
+        <h2>2. WordPress sites (Nurtur or agent websites)</h2>
+
+        <h3>2.1 Embedded contact form</h3>
+
+        <h4>Option A – Block editor (Gutenberg)</h4>
+        <ol>
+          <li>
+            From BriefYourMarket, copy the
+            <strong>GetContactForm</strong> snippet for the required form.
+          </li>
+          <li>
+            Add that snippet to the site header (e.g. via a code-snippets plugin
+            or theme so it appears in <code>&lt;head&gt;</code>).
+          </li>
+          <li>
+            Edit the target page in WordPress and add a
+            <strong>Custom HTML</strong> block.
+          </li>
+          <li>
+            In the block, create the target container:
+          </li>
+        </ol>
+
+        <pre><code>&lt;div id="bymForm"&gt;&lt;/div&gt;</code></pre>
+
+        <ol start="5">
+          <li>
+            Update the page and confirm the form renders on the front-end.
+          </li>
+        </ol>
+
+        <h4>Option B – Theme template</h4>
+        <ol>
+          <li>
+            Add the <strong>GetContactForm</strong> snippet to your child
+            theme’s <code>header.php</code> (or equivalent) so it loads for the
+            correct templates.
+          </li>
+          <li>
+            In the relevant template (e.g. <code>page-contact.php</code>), output:
+          </li>
+        </ol>
+
+        <pre><code>&lt;div id="bymForm"&gt;&lt;/div&gt;</code></pre>
+
+        <ol start="3">
+          <li>Deploy the updated theme and test on the live page.</li>
+        </ol>
+
+        <h3>2.2 Pop-up contact form in WordPress</h3>
+
+        <h4>Option A – BYM pop-up</h4>
+        <ol>
+          <li>
+            In BriefYourMarket, copy the combined
+            <strong>GetContactForm + DisplayContactForm</strong> snippet for the
+            form.
+          </li>
+          <li>
+            Add this snippet to the WordPress header (via a child theme or
+            snippet plugin).
+          </li>
+          <li>
+            Add the dialog markup either in:
+            <ul>
+              <li>A Custom HTML block on the target page, or</li>
+              <li>A theme/page template.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <pre><code>&lt;div id="bymFormDialog"&gt;
+  &lt;div&gt;
+    &lt;div id="bymFormDialogClose"&gt;&lt;/div&gt;
+    &lt;div id="bymForm"&gt;&lt;/div&gt;
+    &lt;div id="bymForm"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <ol start="4">
+          <li>
+            Test in a private/incognito window to ensure the pop-up appears as
+            configured by <code>afterVisits</code>.
+          </li>
+        </ol>
+
+        <h4>Option B – Custom Nurtur modal</h4>
+        <ol>
+          <li>
+            Add the <strong>GetContactForm</strong> snippet to the site header.
+          </li>
+          <li>
+            Insert the custom modal HTML (as shown in section 1.3) via a Custom
+            HTML block or a template.
+          </li>
+          <li>
+            Add the same small JavaScript snippet to handle open/close logic.
+          </li>
+          <li>
+            Apply Nurtur styling via your child theme CSS or
+            <strong>Appearance &gt; Customise &gt; Additional CSS</strong>.
+          </li>
+        </ol>
+
+        <h2>3. Branding BriefYourMarket forms with Nurtur CSS</h2>
+
+        <p>
+          BriefYourMarket provides the structure and behaviour; Nurtur controls the
+          visual layer via CSS. The same approach works for HTML and WordPress sites.
+        </p>
+
+        <h3>3.1 Common selectors</h3>
+
+        <ul>
+          <li><code>#bymForm</code> – main embedded form container.</li>
+          <li><code>#bymFormDialog</code> – dialog container (if using BYM pop-up).</li>
+          <li>
+            Inside these:
+            <ul>
+              <li><code>input</code>, <code>textarea</code>, <code>select</code> – for field styling.</li>
+              <li>
+                The submit button – typically <code>input[type="submit"]</code>,
+                <code>button</code>, or a specific class (check the rendered HTML).
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3>3.2 Example Nurtur styling (light orange panel + accent button)</h3>
+
+        <pre><code>/* Panel background for embedded form and pop-up dialog */
+#bymForm,
+#bymFormDialog &gt; div {
+  background: #fff7f0;          /* Nurtur light orange accent */
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+/* Input fields */
+#bymForm input[type="text"],
+#bymForm input[type="email"],
+#bymForm textarea,
+#bymForm select {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Submit button (adjust selectors to match rendered markup) */
+#bymForm button,
+#bymForm input[type="submit"],
+#bymForm .bym-contactForm-submit {
+  background-color: #f28919;    /* Nurtur bright orange */
+  border-color: #f28919;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+}
+
+#bymForm button:hover,
+#bymForm input[type="submit"]:hover,
+#bymForm .bym-contactForm-submit:hover {
+  background-color: #d7700c;
+  border-color: #d7700c;
+}</code></pre>
+
+        <p>
+          On Nurtur-managed HTML sites, include this in
+          <code>styles.css</code>. For WordPress, apply it via the child theme
+          stylesheet or the <strong>Additional CSS</strong> panel.
+        </p>
+      </section>
     </main>
 
     <footer>
       <div class="footer-inner">
         <span>© <span id="year"></span> Nurtur.</span>
-        <span>Embedded demo powered by BriefYourMarket.</span>
+        <span>Internal guide – BriefYourMarket implementation.</span>
       </div>
     </footer>
   </div>
-
-  <!-- Floating link to popup demo -->
-  <a href="popup-widget.html" class="floating-popup-btn">
-    <span class="icon">💬</span>
-    <span>Try popup demo</span>
-  </a>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
