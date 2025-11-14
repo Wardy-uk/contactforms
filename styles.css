@@ -1,382 +1,504 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Nurtur – Implementing BriefYourMarket Contact Forms</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Internal Nurtur guide for implementing BriefYourMarket contact forms on websites."
-  />
-
-  <!-- Shared styles -->
-  <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
-  <div class="page">
-    <header>
-      <div class="nav">
-        <div class="logo">
-          <div class="logo-mark">N</div>
-          <span>Nurtur contact form guide</span>
-        </div>
-        <div class="nav-links">
-          <a href="index.html">Embedded demo</a>
-          <a href="popup-widget.html">Popup demo</a>
-          <a href="implementation.html" class="nav-link-active">Implementation guide</a>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="doc-page">
-        <div class="section-tag">
-          <span class="section-tag-dot"></span>
-          <span>Internal implementation guide</span>
-        </div>
-
-        <h1>Implementing BriefYourMarket Contact Forms (Nurtur)</h1>
-
-        <p>
-          This guide explains how Nurtur teams can implement
-          <strong>BriefYourMarket contact forms</strong> on:
-        </p>
-        <ul>
-          <li>Standard HTML sites (e.g. Nurtur microsites, static demos).</li>
-          <li>WordPress sites used by Nurtur or our agents.</li>
-          <li>How to brand the forms using Nurtur CSS.</li>
-        </ul>
-
-        <div class="note">
-          <strong>Where to get the snippets</strong><br />
-          For each contact form, the required implementation snippets (for the
-          <code>GetContactForm</code> script and optional pop-up behaviour) are
-          available in your BriefYourMarket instance under:<br />
-          <strong>Email &gt; Content &gt; Contact Forms &gt; [Your Form]</strong>.<br />
-          <br />
-          This page intentionally does <em>not</em> include live script URLs –
-          always copy the latest snippets directly from BriefYourMarket.
-        </div>
-
-        <h2>1. Standard HTML websites</h2>
-
-        <h3>1.1 Embedded contact form</h3>
-        <p>To embed a BriefYourMarket form into a standard HTML page:</p>
-
-        <ol>
-          <li>
-            In BriefYourMarket, go to
-            <strong>Email &gt; Content &gt; Contact Forms</strong> and open the
-            required form.
-          </li>
-          <li>
-            Copy the <strong>GetContactForm</strong> snippet provided for that
-            form.
-          </li>
-          <li>
-            Paste the <strong>GetContactForm</strong> snippet into the
-            <code>&lt;head&gt;</code> of your HTML page.
-          </li>
-          <li>
-            In the <code>&lt;body&gt;</code>, create a container with the same
-            <code>elementId</code> referenced in the snippet (commonly
-            <code>bymForm</code>):
-          </li>
-        </ol>
-
-        <pre><code>&lt;!-- Target container for the embedded BriefYourMarket contact form --&gt;
-&lt;div id="bymForm"&gt;&lt;/div&gt;</code></pre>
-
-        <p>
-          When the page loads, BriefYourMarket injects the form markup into the
-          container with the matching <code>id</code>.
-        </p>
-
-        <h3>1.2 Pop-up contact form (BYM pop-up)</h3>
-
-        <p>
-          BriefYourMarket can also manage the pop-up behaviour for you via the
-          <strong>DisplayContactForm</strong> script.
-        </p>
-
-        <ol>
-          <li>
-            In BriefYourMarket, open the relevant contact form and copy the
-            implementation that includes:
-            <ul>
-              <li><strong>GetContactForm</strong> – loads the form markup.</li>
-              <li><strong>DisplayContactForm</strong> – controls the pop-up.</li>
-            </ul>
-          </li>
-          <li>
-            Paste the two-script snippet into the page
-            <code>&lt;head&gt;</code>. It will reference:
-            <ul>
-              <li><code>dialogElementId</code> – dialog container (e.g. <code>bymFormDialog</code>).</li>
-              <li><code>afterVisits</code> – number of visits before the pop-up shows.</li>
-              <li><code>expireAfterNumberOfDays</code> – cookie duration.</li>
-              <li><code>closeButtonId</code> – element used to close the dialog.</li>
-            </ul>
-          </li>
-          <li>
-            In the <code>&lt;body&gt;</code>, create the dialog container with
-            the IDs specified in the snippet:
-          </li>
-        </ol>
-
-        <pre><code>&lt;!-- Dialog container for BriefYourMarket pop-up --&gt;
-&lt;div id="bymFormDialog"&gt;
-  &lt;div&gt;
-    &lt;div id="bymFormDialogClose"&gt;&lt;/div&gt;
-    &lt;div id="bymForm"&gt;&lt;/div&gt;
-    &lt;div id="bymForm"&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-        <p>
-          Then test in a private/incognito window. Depending on
-          <code>afterVisits</code>, you may need to refresh multiple times for
-          the pop-up to appear.
-        </p>
-
-        <h3>1.3 Pop-up contact form (custom Nurtur modal)</h3>
-
-        <p>
-          For full control over the look and behaviour, you can build a custom
-          Nurtur-branded modal and use BriefYourMarket only for the
-          <em>form content</em> via <strong>GetContactForm</strong>.
-        </p>
-
-        <ol>
-          <li>
-            Copy the <strong>GetContactForm</strong> snippet for your form from
-            BriefYourMarket and add it to the page
-            <code>&lt;head&gt;</code>.
-          </li>
-          <li>
-            In the <code>&lt;body&gt;</code>, add a modal overlay and panel:
-          </li>
-        </ol>
-
-        <pre><code>&lt;div class="modal-overlay is-open" id="contactModal"&gt;
-  &lt;div class="modal"&gt;
-    &lt;button class="modal-close" id="contactModalClose"&gt;&amp;times;&lt;/button&gt;
-    &lt;!-- BriefYourMarket will inject the form here --&gt;
-    &lt;div id="bymForm"&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-        <ol start="3">
-          <li>
-            Add a small JavaScript snippet to close the modal:
-          </li>
-        </ol>
-
-        <pre><code>&lt;script&gt;
-  (function () {
-    var modal = document.getElementById("contactModal");
-    var closeBtn = document.getElementById("contactModalClose");
-    if (modal &amp;&amp; closeBtn) {
-      closeBtn.addEventListener("click", function () {
-        modal.classList.remove("is-open");
-      });
-    }
-  })();
-&lt;/script&gt;</code></pre>
-
-        <p>
-          The Nurtur CSS (see examples below) controls the colours, spacing and
-          animation of the modal.
-        </p>
-
-        <h2>2. WordPress sites (Nurtur or agent websites)</h2>
-
-        <h3>2.1 Embedded contact form</h3>
-
-        <h4>Option A – Block editor (Gutenberg)</h4>
-        <ol>
-          <li>
-            From BriefYourMarket, copy the
-            <strong>GetContactForm</strong> snippet for the required form.
-          </li>
-          <li>
-            Add that snippet to the site header (e.g. via a code-snippets plugin
-            or theme so it appears in <code>&lt;head&gt;</code>).
-          </li>
-          <li>
-            Edit the target page in WordPress and add a
-            <strong>Custom HTML</strong> block.
-          </li>
-          <li>
-            In the block, create the target container:
-          </li>
-        </ol>
-
-        <pre><code>&lt;div id="bymForm"&gt;&lt;/div&gt;</code></pre>
-
-        <ol start="5">
-          <li>
-            Update the page and confirm the form renders on the front-end.
-          </li>
-        </ol>
-
-        <h4>Option B – Theme template</h4>
-        <ol>
-          <li>
-            Add the <strong>GetContactForm</strong> snippet to your child
-            theme’s <code>header.php</code> (or equivalent) so it loads for the
-            correct templates.
-          </li>
-          <li>
-            In the relevant template (e.g. <code>page-contact.php</code>), output:
-          </li>
-        </ol>
-
-        <pre><code>&lt;div id="bymForm"&gt;&lt;/div&gt;</code></pre>
-
-        <ol start="3">
-          <li>Deploy the updated theme and test on the live page.</li>
-        </ol>
-
-        <h3>2.2 Pop-up contact form in WordPress</h3>
-
-        <h4>Option A – BYM pop-up</h4>
-        <ol>
-          <li>
-            In BriefYourMarket, copy the combined
-            <strong>GetContactForm + DisplayContactForm</strong> snippet for the
-            form.
-          </li>
-          <li>
-            Add this snippet to the WordPress header (via a child theme or
-            snippet plugin).
-          </li>
-          <li>
-            Add the dialog markup either in:
-            <ul>
-              <li>A Custom HTML block on the target page, or</li>
-              <li>A theme/page template.</li>
-            </ul>
-          </li>
-        </ol>
-
-        <pre><code>&lt;div id="bymFormDialog"&gt;
-  &lt;div&gt;
-    &lt;div id="bymFormDialogClose"&gt;&lt;/div&gt;
-    &lt;div id="bymForm"&gt;&lt;/div&gt;
-    &lt;div id="bymForm"&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-        <ol start="4">
-          <li>
-            Test in a private/incognito window to ensure the pop-up appears as
-            configured by <code>afterVisits</code>.
-          </li>
-        </ol>
-
-        <h4>Option B – Custom Nurtur modal</h4>
-        <ol>
-          <li>
-            Add the <strong>GetContactForm</strong> snippet to the site header.
-          </li>
-          <li>
-            Insert the custom modal HTML (as shown in section 1.3) via a Custom
-            HTML block or a template.
-          </li>
-          <li>
-            Add the same small JavaScript snippet to handle open/close logic.
-          </li>
-          <li>
-            Apply Nurtur styling via your child theme CSS or
-            <strong>Appearance &gt; Customise &gt; Additional CSS</strong>.
-          </li>
-        </ol>
-
-        <h2>3. Branding BriefYourMarket forms with Nurtur CSS</h2>
-
-        <p>
-          BriefYourMarket provides the structure and behaviour; Nurtur controls the
-          visual layer via CSS. The same approach works for HTML and WordPress sites.
-        </p>
-
-        <h3>3.1 Common selectors</h3>
-
-        <ul>
-          <li><code>#bymForm</code> – main embedded form container.</li>
-          <li><code>#bymFormDialog</code> – dialog container (if using BYM pop-up).</li>
-          <li>
-            Inside these:
-            <ul>
-              <li><code>input</code>, <code>textarea</code>, <code>select</code> – for field styling.</li>
-              <li>
-                The submit button – typically <code>input[type="submit"]</code>,
-                <code>button</code>, or a specific class (check the rendered HTML).
-              </li>
-            </ul>
-          </li>
-        </ul>
-
-        <h3>3.2 Example Nurtur styling (light orange panel + accent button)</h3>
-
-        <pre><code>/* Panel background for embedded form and pop-up dialog */
-#bymForm,
-#bymFormDialog &gt; div {
-  background: #fff7f0;          /* Nurtur light orange accent */
-  border-radius: 20px;
-  padding: 1rem;
+:root {
+  --teal: #5ec1ca;
+  --dark: #272c33;
+  --light-bg: #f5f6fa;      /* site background */
+  --panel-bg: #fff7f0;      /* light orange for forms and modals */
+  --mid-grey: #828082;
+  --orange: #f28919;        /* Nurtur bright orange */
 }
 
-/* Input fields */
-#bymForm input[type="text"],
-#bymForm input[type="email"],
-#bymForm textarea,
-#bymForm select {
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  padding: 0.5rem;
+/* Base layout */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  background: var(--light-bg);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header / Nav */
+
+header {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  color: var(--dark);
+}
+
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #ffffff, var(--teal));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--dark);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--mid-grey);
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.nav-link-active {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+/* Main layout */
+
+main {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Embedded page layout */
+
+.hero-shell {
   width: 100%;
-  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+  gap: 2.5rem;
+  align-items: center;
 }
 
-/* Submit button (adjust selectors to match rendered markup) */
+@media (max-width: 840px) {
+  .hero-shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 1rem;
+  }
+}
+
+/* Popup page layout */
+
+.hero {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Typographic pieces for hero sections */
+
+.hero-copy h1,
+.hero h1 {
+  font-size: clamp(2.2rem, 2.8vw + 1.4rem, 3rem);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.hero-highlight,
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 193, 202, 0.25);
+  background: rgba(94, 193, 202, 0.06);
+  color: var(--mid-grey);
+  margin-bottom: 0.9rem;
+}
+
+.hero-highlight-dot,
+.hero-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+
+.hero-copy p,
+.hero p {
+  font-size: 0.98rem;
+  color: var(--mid-grey);
+  max-width: 34rem;
+  margin-bottom: 1.4rem;
+}
+
+.hero-list {
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--dark);
+  padding-left: 0;
+}
+
+.hero-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.hero-list-bullet {
+  margin-top: 0.32rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--orange);
+  flex-shrink: 0;
+}
+
+/* CTA buttons */
+
+.hero-cta-row {
+  margin-top: 1.4rem;
+}
+
+.btn-popup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(94, 193, 202, 0.28);
+  transition: background 0.15s ease, transform 0.12s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn-popup-icon {
+  font-size: 1.05rem;
+  margin-top: 1px;
+}
+
+.btn-popup:hover {
+  background: #4bb3bd;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(94, 193, 202, 0.35);
+}
+
+/* Form panel */
+
+.form-panel {
+  background: var(--panel-bg);
+  border-radius: 26px;
+  padding: 1.6rem 1.8rem 1.4rem;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(94, 193, 202, 0.25);
+  position: relative;
+}
+
+.form-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  gap: 1rem;
+}
+
+.form-panel-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-panel-subtitle {
+  font-size: 0.8rem;
+  color: var(--mid-grey);
+}
+
+.status-pill {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(24, 166, 93, 0.08);
+  color: #12814c;
+  border: 1px solid rgba(24, 166, 93, 0.35);
+  white-space: nowrap;
+}
+
+.form-fallback {
+  font-size: 0.85rem;
+  color: var(--mid-grey);
+  margin: 0;
+}
+
+/* Footer */
+
+footer {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--mid-grey);
+  border-top: 1px solid rgba(130, 128, 130, 0.18);
+  padding-top: 0.75rem;
+}
+
+/* Floating popup button */
+
+.floating-popup-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--dark);
+  font-size: 0.9rem;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(94, 193, 202, 0.35);
+  backdrop-filter: blur(8px);
+  transition: transform 0.12s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.floating-popup-btn span.icon {
+  font-size: 1.1rem;
+  margin-top: 1px;
+}
+
+.floating-popup-btn:hover {
+  transform: translateY(-1px);
+  background: #f5feff;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 640px) {
+  .floating-popup-btn {
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.6rem 1.1rem;
+  }
+}
+
+/* BYM submit button override (embedded + popup) */
+
 #bymForm button,
 #bymForm input[type="submit"],
+#bymForm input[type="button"],
 #bymForm .bym-contactForm-submit {
-  background-color: #f28919;    /* Nurtur bright orange */
-  border-color: #f28919;
-  color: #ffffff;
-  border-radius: 4px;
-  padding: 0.5rem 1.2rem;
-  cursor: pointer;
+  background-color: var(--orange) !important;
+  border-color: var(--orange) !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
 }
 
 #bymForm button:hover,
 #bymForm input[type="submit"]:hover,
+#bymForm input[type="button"]:hover,
 #bymForm .bym-contactForm-submit:hover {
-  background-color: #d7700c;
-  border-color: #d7700c;
-}</code></pre>
+  background-color: #d7700c !important;
+  border-color: #d7700c !important;
+}
 
-        <p>
-          On Nurtur-managed HTML sites, include this in
-          <code>styles.css</code>. For WordPress, apply it via the child theme
-          stylesheet or the <strong>Additional CSS</strong> panel.
-        </p>
-      </section>
-    </main>
+/* Modal popup (custom Nurtur modal) */
 
-    <footer>
-      <div class="footer-inner">
-        <span>© <span id="year"></span> Nurtur.</span>
-        <span>Internal guide – BriefYourMarket implementation.</span>
-      </div>
-    </footer>
-  </div>
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+}
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal {
+  background: var(--panel-bg);
+  border-radius: 20px;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  padding: 1.6rem 1.8rem 1.8rem;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.modal-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.4rem;
+  color: var(--dark);
+}
+
+.modal-subtitle {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--mid-grey);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #555;
+}
+
+/* Documentation page styling */
+
+.doc-page {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.doc-page h1 {
+  font-size: 1.9rem;
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+}
+
+.doc-page h2 {
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.doc-page h3 {
+  font-size: 1.15rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.doc-page h4 {
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.doc-page p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.doc-page ul {
+  padding-left: 1.2rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.doc-page li {
+  margin-bottom: 0.25rem;
+}
+
+/* Code blocks in docs */
+
+.doc-page pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.doc-page code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+  background: #f0f2f7;
+  padding: 0.05rem 0.25rem;
+  border-radius: 3px;
+}
+
+.doc-page pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Note block and section tag */
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mid-grey);
+  margin-bottom: 0.4rem;
+}
+
+.section-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--teal);
+  margin-right: 0.4rem;
+}
+
+.note {
+  background: var(--panel-bg);
+  border-left: 3px solid var(--orange);
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
