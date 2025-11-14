@@ -9,186 +9,12 @@
     content="Demo page showing a BriefYourMarket contact form as a popup widget."
   />
 
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="styles.css" />
+
   <!-- BYM popup scripts – ALWAYS show (afterVisits=1) -->
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
   <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=1&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
-
-  <style>
-    :root {
-      --teal: #5ec1ca;
-      --dark: #272c33;
-      --light-bg: #f4f8fc;
-      --panel-bg: #f2fbfd;
-      --mid-grey: #828082;
-      --orange: #f28919;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, sans-serif;
-      background: var(--light-bg);
-      color: var(--dark);
-      line-height: 1.6;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      padding: 1.5rem 1.5rem 0.5rem;
-    }
-
-    .nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-size: 0.95rem;
-    }
-
-    .logo-mark {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #ffffff, var(--teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.9rem;
-      color: var(--dark);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links a {
-      font-size: 0.85rem;
-      text-decoration: none;
-      color: var(--mid-grey);
-    }
-
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      flex: 1;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(94, 193, 202, 0.25);
-      background: rgba(94, 193, 202, 0.06);
-      color: var(--mid-grey);
-      margin-bottom: 0.9rem;
-    }
-
-    .hero-tag-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--teal);
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 2.4vw + 1.4rem, 2.6rem);
-      line-height: 1.1;
-      margin: 0 0 1rem;
-    }
-
-    .hero p {
-      max-width: 40rem;
-      margin: 0 0 1.2rem;
-      color: var(--mid-grey);
-    }
-
-    .hero-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-      font-size: 0.95rem;
-    }
-
-    .hero-list-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.45rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .hero-list-bullet {
-      margin-top: 0.32rem;
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--orange);
-      flex-shrink: 0;
-    }
-
-    footer {
-      padding: 1rem 1.5rem 1.5rem;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      color: var(--mid-grey);
-      border-top: 1px solid rgba(130, 128, 130, 0.18);
-      padding-top: 0.75rem;
-    }
-
-    /* Dialog panel background tint */
-    #bymFormDialog > div {
-      background: var(--panel-bg) !important;
-      border-radius: 20px;
-    }
-
-    /* Clean close icon – simple × */
-    #bymFormDialogClose {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 20px;
-      line-height: 1;
-      cursor: pointer;
-      color: #555;
-      font-weight: 600;
-    }
-  </style>
 </head>
 
 <body>
@@ -246,9 +72,10 @@
   </div>
 
   <!-- Popup dialog container required by BYM scripts -->
+  <!-- Structure matches BYM's instructions exactly -->
   <div id="bymFormDialog">
-    <div style="position:relative;">
-      <div id="bymFormDialogClose">&times;</div>
+    <div>
+      <div id="bymFormDialogClose"></div>
       <div id="bymForm"></div>
       <div id="bymForm"></div>
     </div>
