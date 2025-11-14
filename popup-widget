@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Form Popup Widget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Demo page showing a BriefYourMarket contact form as a popup widget."
+  />
+
+  <!-- BYM scripts -->
+  <script language="javascript" src="https://jenniejones.briefyourmarket.com/Script/GetContactForm?id=5&elementId=bymForm"></script>
+  <script language="javascript" src="https://jenniejones.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=5&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
+
+  <style>
+    :root {
+      --teal: #5ec1ca;
+      --dark: #272c33;
+      --mid-grey: #828082;
+      --orange: #f28919;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: linear-gradient(135deg, #f5f9fb 0%, #ffffff 60%, #e6f6f7 100%);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.5rem 1.5rem 0.5rem;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--dark);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      text-decoration: none;
+      color: var(--mid-grey);
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 193, 202, 0.25);
+      background: rgba(94, 193, 202, 0.06);
+      color: var(--mid-grey);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 2.4vw + 1.4rem, 2.6rem);
+      line-height: 1.1;
+      margin: 0 0 1rem;
+    }
+
+    .hero p {
+      max-width: 40rem;
+      margin: 0 0 1.2rem;
+      color: var(--mid-grey);
+    }
+
+    .hero-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .hero-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-list-bullet {
+      margin-top: 0.32rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    footer {
+      padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--mid-grey);
+      border-top: 1px solid rgba(130, 128, 130, 0.18);
+      padding-top: 0.75rem;
+    }
+
+    /* Optional: small “X” close button styling – BYM script will hook into this ID */
+    #bymFormDialogClose {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    #bymFormDialogClose::before,
+    #bymFormDialogClose::after {
+      content: "";
+      position: absolute;
+      inset: 8px 0;
+      margin: auto;
+      width: 18px;
+      height: 2px;
+      background: #666;
+    }
+
+    #bymFormDialogClose::before {
+      transform: rotate(45deg);
+    }
+
+    #bymFormDialogClose::after {
+      transform: rotate(-45deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="nav">
+        <div class="logo">
+          <div class="logo-mark">NW</div>
+          <span>Contact form popup demo</span>
+        </div>
+        <div class="nav-links">
+          <a href="index.html">← Back to embedded form demo</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-tag">
+          <div class="hero-tag-dot"></div>
+          <span>Popup widget demo</span>
+        </div>
+
+        <h1>Contact form popup widget, powered by BriefYourMarket.</h1>
+
+        <p>
+          This page demonstrates the contact form loading as a popup widget.
+          The dialog is triggered after <strong>5 visits</strong> to this page
+          and will continue to appear according to your cookie settings.
+        </p>
+
+        <ul class="hero-list">
+          <li class="hero-list-item">
+            <div class="hero-list-bullet"></div>
+            <span>Form markup is injected by <code>Script &gt; GetContactForm</code>.</span>
+          </li>
+          <li class="hero-list-item">
+            <div class="hero-list-bullet"></div>
+            <span>Popup behaviour is controlled by <code>Script &gt; DisplayContactForm</code>.</span>
+          </li>
+          <li class="hero-list-item">
+            <div class="hero-list-bullet"></div>
+            <span>Configure triggers via <code>afterVisits</code> and <code>expireAfterNumberOfDays</code> query parameters.</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>© <span id="year"></span> Contact Form Demo.</span>
+        <span>Popup widget powered by BriefYourMarket.</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Popup dialog container required by BYM scripts -->
+  <div id="bymFormDialog">
+    <div style="position:relative;">
+      <div id="bymFormDialogClose"></div>
+      <div id="bymForm"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
