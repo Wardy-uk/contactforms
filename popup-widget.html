@@ -9,14 +9,15 @@
     content="Demo page showing a BriefYourMarket contact form as a popup widget."
   />
 
-  <!-- BYM scripts -->
-  <script language="javascript" src="https://jenniejones.briefyourmarket.com/Script/GetContactForm?id=5&elementId=bymForm"></script>
-  <script language="javascript" src="https://jenniejones.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=5&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
+  <!-- BYM popup scripts – ALWAYS show (afterVisits=1) -->
+  <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
+  <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/DisplayContactForm?dialogElementId=bymFormDialog&afterVisits=1&expireAfterNumberOfDays=0&closeButtonId=bymFormDialogClose"></script>
 
   <style>
     :root {
       --teal: #5ec1ca;
       --dark: #272c33;
+      --light-bg: #f4f8fc;
       --mid-grey: #828082;
       --orange: #f28919;
     }
@@ -25,7 +26,7 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, sans-serif;
-      background: linear-gradient(135deg, #f5f9fb 0%, #ffffff 60%, #e6f6f7 100%);
+      background: var(--light-bg);
       color: var(--dark);
       line-height: 1.6;
     }
@@ -225,8 +226,8 @@
 
         <p>
           This page demonstrates the contact form loading as a popup widget.
-          The dialog is triggered after <strong>5 visits</strong> to this page
-          and will continue to appear according to your cookie settings.
+          The dialog is configured to appear on <strong>every visit</strong>
+          (using <code>afterVisits=1</code> and a non-expiring cookie setting).
         </p>
 
         <ul class="hero-list">
@@ -240,7 +241,7 @@
           </li>
           <li class="hero-list-item">
             <div class="hero-list-bullet"></div>
-            <span>Configure triggers via <code>afterVisits</code> and <code>expireAfterNumberOfDays</code> query parameters.</span>
+            <span>Trigger timing controlled via <code>afterVisits</code> and <code>expireAfterNumberOfDays</code>.</span>
           </li>
         </ul>
       </section>
@@ -258,6 +259,7 @@
   <div id="bymFormDialog">
     <div style="position:relative;">
       <div id="bymFormDialogClose"></div>
+      <div id="bymForm"></div>
       <div id="bymForm"></div>
     </div>
   </div>
