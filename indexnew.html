@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Form Showcase</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="A simple one-page website showcasing an embedded contact form."
+  />
+
+  <!-- BYM embedded form script -->
+  <script language="javascript" src="https://nickwardsandbox.briefyourmarket.com/Script/GetContactForm?id=11&elementId=bymForm"></script>
+
+  <style>
+    :root {
+      --teal: #5ec1ca;
+      --dark: #272c33;
+      --light-bg: #f4f8fc;     /* site background */
+      --panel-bg: #ffffff;     /* embedded form panel background */
+      --mid-grey: #828082;
+      --orange: #f28919;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: var(--light-bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.5rem 1.5rem 0.5rem;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--dark);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      text-decoration: none;
+      color: var(--mid-grey);
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-shell {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 840px) {
+      .hero-shell {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 1rem;
+      }
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.2rem, 2.8vw + 1.4rem, 3rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .hero-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(94, 193, 202, 0.25);
+      background: rgba(94, 193, 202, 0.06);
+      color: var(--mid-grey);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-highlight-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .hero-copy p {
+      font-size: 0.98rem;
+      color: var(--mid-grey);
+      max-width: 34rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-list {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--dark);
+      padding-left: 0;
+    }
+
+    .hero-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+
+    .hero-list-bullet {
+      margin-top: 0.32rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .hero-cta-row {
+      margin-top: 1.4rem;
+    }
+
+    .btn-popup {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      background: var(--teal);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(94, 193, 202, 0.28);
+      transition: background 0.15s ease, transform 0.12s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .btn-popup-icon {
+      font-size: 1.05rem;
+      margin-top: 1px;
+    }
+
+    .btn-popup:hover {
+      background: #4bb3bd;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(94, 193, 202, 0.35);
+    }
+
+    .form-panel {
+      background: var(--panel-bg);
+      border-radius: 26px;
+      padding: 1.6rem 1.8rem 1.4rem;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(94, 193, 202, 0.25);
+      position: relative;
+    }
+
+    .form-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.9rem;
+      gap: 1rem;
+    }
+
+    .form-panel-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .form-panel-subtitle {
+      font-size: 0.8rem;
+      color: var(--mid-grey);
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(24, 166, 93, 0.08);
+      color: #12814c;
+      border: 1px solid rgba(24, 166, 93, 0.35);
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--mid-grey);
+      border-top: 1px solid rgba(130, 128, 130, 0.18);
+      padding-top: 0.75rem;
+    }
+
+    /* Floating button to jump to popup demo */
+    .floating-popup-btn {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.35rem;
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--dark);
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(94, 193, 202, 0.35);
+      backdrop-filter: blur(8px);
+      transition: transform 0.12s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .floating-popup-btn span.icon {
+      font-size: 1.1rem;
+      margin-top: 1px;
+    }
+
+    .floating-popup-btn:hover {
+      transform: translateY(-1px);
+      background: #f5feff;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+    }
+
+    @media (max-width: 640px) {
+      .floating-popup-btn {
+        right: 1rem;
+        bottom: 1rem;
+        padding: 0.6rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="nav">
+        <div class="logo">
+          <div class="logo-mark">NW</div>
+          <span>Contact form demo</span>
+        </div>
+        <div class="nav-links">
+          <a href="popup-widget.html">Popup widget demo →</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero-shell">
+        <section class="hero-copy">
+          <div class="hero-highlight">
+            <div class="hero-highlight-dot"></div>
+            <span>Embedded BYM contact form demo</span>
+          </div>
+
+          <h1>Showcasing an embedded contact form — clean, simple, and ready to use.</h1>
+
+          <p>
+            This single-page layout is designed to make the contact form the star
+            of the show. Use it as a standalone demo, or as the foundation for a
+            more complete site.
+          </p>
+
+          <ul class="hero-list">
+            <li class="hero-list-item">
+              <div class="hero-list-bullet"></div>
+              <span>Fully static – ideal for GitHub + Netlify deployments.</span>
+            </li>
+            <li class="hero-list-item">
+              <div class="hero-list-bullet"></div>
+              <span>Form loaded dynamically via your BriefYourMarket script.</span>
+            </li>
+            <li class="hero-list-item">
+              <div class="hero-list-bullet"></div>
+              <span>Lightweight, responsive layout with a subtle brand-friendly style.</span>
+            </li>
+          </ul>
+
+          <div class="hero-cta-row">
+            <a href="popup-widget.html" class="btn-popup">
+              <span>Open popup widget demo</span>
+              <span class="btn-popup-icon">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <section id="contact" class="form-panel" aria-label="Contact form demo">
+          <div class="form-panel-header">
+            <div>
+              <div class="form-panel-title">Contact form</div>
+              <div class="form-panel-subtitle">
+                This section is populated by the embedded BYM script.
+              </div>
+            </div>
+            <div class="status-pill">Live embed</div>
+          </div>
+
+          <!-- BYM target element for embedded form -->
+          <div id="bymForm">
+            <!-- Fallback if script fails -->
+            <p style="font-size:0.85rem; color:#828082; margin:0;">
+              Loading contact form… If this message remains, please check the
+              script configuration.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>© <span id="year"></span> Contact Form Demo.</span>
+        <span>Embedded demo powered by BriefYourMarket.</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Floating link to popup demo -->
+  <a href="popup-widget.html" class="floating-popup-btn">
+    <span class="icon">💬</span>
+    <span>Try popup widget</span>
+  </a>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
