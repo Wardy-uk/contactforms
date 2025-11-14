@@ -9,7 +9,7 @@
     content="A simple one-page website showcasing an embedded contact form."
   />
 
-  <!-- Basic styling -->
+  <!-- Updated CSS reset so it DOES NOT break the embedded BYM form -->
   <style>
     :root {
       --teal: #5ec1ca;
@@ -20,13 +20,15 @@
       --radius-lg: 18px;
     }
 
-    * {
+    /* ✅ FIXED RESET — we keep box-sizing but DO NOT remove padding/margins */
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, sans-serif;
       background: linear-gradient(135deg, #f5f9fb 0%, #ffffff 60%, #e6f6f7 100%);
@@ -172,7 +174,6 @@
       height: 8px;
       border-radius: 999px;
       background: var(--orange);
-      flex-shrink: 0;
     }
 
     .hero-cta-row {
@@ -197,19 +198,12 @@
       cursor: pointer;
       text-decoration: none;
       box-shadow: 0 12px 25px rgba(39, 44, 51, 0.25);
-      transition: transform 0.12s ease, box-shadow 0.12s ease,
-        background 0.12s ease;
-    }
-
-    .btn-primary span.icon {
-      font-size: 1.05rem;
-      margin-top: 1px;
+      transition: 0.15s ease;
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       box-shadow: 0 16px 30px rgba(39, 44, 51, 0.28);
-      background: #15181c;
     }
 
     .btn-secondary {
@@ -233,31 +227,11 @@
       overflow: hidden;
     }
 
-    .form-panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-          circle at 15% 0%,
-          rgba(94, 193, 202, 0.16),
-          transparent 52%
-        ),
-        radial-gradient(
-          circle at 100% 100%,
-          rgba(242, 137, 25, 0.12),
-          transparent 55%
-        );
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: -1;
-    }
-
     .form-panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 0.9rem;
-      gap: 1rem;
     }
 
     .form-panel-title {
@@ -310,7 +284,6 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 0.5rem;
       font-size: 0.78rem;
       color: var(--mid-grey);
       border-top: 1px solid rgba(130, 128, 130, 0.18);
@@ -318,9 +291,10 @@
     }
   </style>
 
-  <!-- Your contact form script -->
+  <!-- Embedded BYM form script -->
   <script language="javascript" src="https://jenniejones.briefyourmarket.com/Script/GetContactForm?id=5&elementId=bymForm"></script>
 </head>
+
 <body>
   <div class="page">
     <header>
@@ -337,7 +311,6 @@
 
     <main>
       <div class="hero-shell">
-        <!-- Left: Intro / explanation -->
         <section class="hero-copy">
           <div class="hero-highlight">
             <div class="hero-highlight-dot"></div>
@@ -346,57 +319,32 @@
 
           <h1>Showcasing an embedded contact form — clean, simple, and ready to use.</h1>
 
-          <p>
-            This single-page layout is designed to make the contact form the star
-            of the show. Use it as a standalone demo, or as the foundation for a
-            more complete site.
-          </p>
+          <p>This single-page layout is designed to make the contact form the star of the show. Use it as a standalone demo, or as the foundation for a more complete site.</p>
 
           <ul class="hero-list">
-            <li>
-              <div class="hero-list-bullet"></div>
-              <span>Fully static – ideal for GitHub + Netlify deployments.</span>
-            </li>
-            <li>
-              <div class="hero-list-bullet"></div>
-              <span>Form loaded dynamically via your BriefYourMarket script.</span>
-            </li>
-            <li>
-              <div class="hero-list-bullet"></div>
-              <span>Lightweight, responsive layout with a subtle brand-friendly style.</span>
-            </li>
+            <li><div class="hero-list-bullet"></div><span>Fully static – ideal for GitHub + Netlify deployments.</span></li>
+            <li><div class="hero-list-bullet"></div><span>Form loaded dynamically via your BriefYourMarket script.</span></li>
+            <li><div class="hero-list-bullet"></div><span>Lightweight, responsive layout with a subtle brand-friendly style.</span></li>
           </ul>
 
           <div class="hero-cta-row">
-            <a href="#contact" class="btn-primary">
-              <span>Jump to contact form</span>
-              <span class="icon">↓</span>
-            </a>
-            <div class="btn-secondary">
-              <span>Scroll to see how the form renders in context.</span>
-            </div>
+            <a href="#contact" class="btn-primary">Jump to contact form ↓</a>
+            <div class="btn-secondary"><span>Scroll to see how the form renders in context.</span></div>
           </div>
         </section>
 
-        <!-- Right: Form panel -->
-        <section id="contact" class="form-panel" aria-label="Contact form demo">
+        <section id="contact" class="form-panel">
           <div class="form-panel-header">
             <div>
               <div class="form-panel-title">Contact form</div>
-              <div class="form-panel-subtitle">
-                This section is populated by the embedded BYM script.
-              </div>
+              <div class="form-panel-subtitle">This section is populated by the embedded BYM script.</div>
             </div>
             <div class="status-pill">Live embed</div>
           </div>
 
           <div class="form-wrapper">
-            <!-- BYM contact form target element -->
             <div id="bymForm">
-              <div class="form-placeholder">
-                Loading contact form&hellip; If this message remains, please check
-                the script configuration.
-              </div>
+              <div class="form-placeholder">Loading contact form…</div>
             </div>
           </div>
         </section>
@@ -406,30 +354,14 @@
     <footer>
       <div class="footer-inner">
         <span>© <span id="year"></span> Contact Form Demo.</span>
-        <span>Powered by BriefYourMarket &amp; deployed via Netlify.</span>
+        <span>Powered by BriefYourMarket & Netlify.</span>
       </div>
     </footer>
   </div>
 
   <script>
-    // Set current year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Smooth scroll for internal anchor links
-    document.addEventListener("click", function (e) {
-      const link = e.target.closest('a[href^="#"]');
-      if (!link) return;
-
-      const targetId = link.getAttribute("href").slice(1);
-      const target = document.getElementById(targetId);
-      if (!target) return;
-
-      e.preventDefault();
-      window.scrollTo({
-        top: target.getBoundingClientRect().top + window.scrollY - 80,
-        behavior: "smooth",
-      });
-    });
   </script>
 </body>
 </html>
+
